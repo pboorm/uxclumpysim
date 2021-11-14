@@ -112,7 +112,7 @@ fig.update_yaxes(ticks="inside", tickwidth = 2.5, ticklen = 10., linewidth = 2.5
 
 fig.update_traces(line=dict(color="dodgerblue", width=4.))
 
-fig.update_layout({"plot_bgcolor": "rgba(0, 0, 0, 0)"},
+fig.update_layout(plot_bgcolor = "rgba(0, 0, 0, 0)",
                   legend=dict(yanchor="top",
                               y=0.99,
                               xanchor="left",
@@ -134,7 +134,7 @@ fig.update_layout({"plot_bgcolor": "rgba(0, 0, 0, 0)"},
                              side="top",
                              titlefont=dict(size=30)))
 
-st.plotly_chart(fig)
+st.plotly_chart(fig, use_container_width=True)
     
 
 # st.sidebar.markdown("### Model outputs")
