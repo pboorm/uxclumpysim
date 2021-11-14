@@ -46,7 +46,7 @@ fd["norm"] = Normalize(vmin = 21., vmax = 26.)
 fd["cmap_cols"] = fd["cmap"](fd["norm"](fd["parameters"]))
 # st.title("${\\tt UXCLUMPY}$ X-ray Simulator")
 
-st.subheader("${\\tt UXCLUMPY}$ log $N_{\\rm H}$")
+st.subheader("${\\tt UXCLUMPY}$ log $N_{\\rm H}$ / cm$^{-2}$")
 
 ## controller
 logNHtor_c = st.slider(
