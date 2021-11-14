@@ -134,7 +134,7 @@ fig.update_layout(plot_bgcolor = "rgba(0, 0, 0, 0)",
                              side="top",
                              titlefont=dict(size=30)))
 
-st.plotly_chart(fig, use_container_width=True)
+st.plotly_chart(fig, use_container_width=True, use_container_height=True)
     
 
 # st.sidebar.markdown("### Model outputs")
