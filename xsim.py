@@ -110,7 +110,7 @@ st.plotly_chart(fig, use_container_width=True, config=config)
 # st.sidebar.markdown("### Model outputs")
 if st.checkbox("Show Table", False):
     st.subheader("Raw Data Table")
-    st.write(df, index=False)
+    st.write(fd["df_new"], index=False)
 
 # Some advertising
 st.markdown("[UXCLUMPY](https://github.com/JohannesBuchner/xars/blob/master/doc/uxclumpy.rst): [Buchner et al., (2019)](https://ui.adsabs.harvard.edu/abs/2019A%26A...629A..16B/abstract)")
