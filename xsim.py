@@ -69,7 +69,7 @@ fig = px.line(
     log_x=True,
     log_y=True,
     width=1000,
-    height=680,
+    height=600,
     labels=dict(Flux="EFE / keV s-1 cm-2", Energy="Energy / keV"),
 )
 
