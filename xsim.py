@@ -34,7 +34,7 @@ def gen_obscured_df(fd, logNH_chosen):
 
 fd = {}
 
-fd["df"] = pd.read_csv("./uxclumpy_var_NH_v19.csv")
+fd["df"] = pd.read_csv("uxclumpy_var_NH_v19.csv")
 fd["cols"] = [c for c in fd["df"].columns if "E_keV" not in c]
 fd["parameters"] = np.array([float(c.split("_")[-1]) for c in fd["cols"]])
 fd["x_range"] = [np.log10(0.5), np.log10(350.)]
@@ -44,9 +44,9 @@ fd["vmax"] = 26.
 fd["cmap"] = get_cmap('plasma_r')
 fd["norm"] = Normalize(vmin = 21., vmax = 26.)
 fd["cmap_cols"] = fd["cmap"](fd["norm"](fd["parameters"]))
-st.title("${\\tt UXCLUMPY}$ X-ray Simulator")
+# st.title("${\\tt UXCLUMPY}$ X-ray Simulator")
 
-st.subheader("log $N_{\\rm H}$")
+st.subheader("${\\tt UXCLUMPY}$ log $N_{\\rm H}$")
 
 ## controller
 logNHtor_c = st.slider(
@@ -69,7 +69,7 @@ fig = px.line(
     log_x=True,
     log_y=True,
     width=1000,
-    height=600,
+    height=500,
     labels=dict(Flux="EFE / keV s-1 cm-2", Energy="Energy / keV"),
 )
 
@@ -113,5 +113,4 @@ if st.checkbox("Show Table", False):
     st.write(fd["df_new"], index=False)
 
 # Some advertising
-st.markdown("[UXCLUMPY](https://github.com/JohannesBuchner/xars/blob/master/doc/uxclumpy.rst): [Buchner et al., (2019)](https://ui.adsabs.harvard.edu/abs/2019A%26A...629A..16B/abstract)")
-st.markdown("App designed by: [Dr. Peter Boorman](https://www.peterboorman.com) & [Dr. Adam Hill](https://www.adambenhill.com)")
+st.markdown("[UXCLUMPY](https://github.com/JohannesBuchner/xars/blob/master/doc/uxclumpy.rst) [(Buchner et al., 2019)](https://ui.adsabs.harvard.edu/abs/2019A%26A...629A..16B/abstract), &copy; [Dr. Peter Boorman](https://www.peterboorman.com) & [Dr. Adam Hill](https://www.adambenhill.com)")
