@@ -7,6 +7,8 @@ import plotly.express as px
 import streamlit as st
 import pandas as pd
 import numpy as np
+from matplotlib.pyplot import get_cmap
+from matplotlib.colors import Normalize
 
 def find_nearest_ID(array, value):
     """
@@ -20,67 +22,32 @@ def gen_obscured_df(fd, logNH_chosen):
     """
     Function to return the obscured spectrum as a df with E_keV and spec as columns
     """
-    fd["parameters"] = np.array([float(c.split("_")[-1]) for c in fd["cols"]])
     logNH_par = find_nearest_ID(fd["parameters"], logNH_chosen)
 
-    df_new = fd["df"][["E_keV", fd["cols"][logNH_par]]]
-    return df_new
+    fd["df_new"] = fd["df"][["E_keV", fd["cols"][logNH_par]]]
+    fd["chosen_par"] = fd["parameters"][logNH_par]
+    fd["chosen_parID"] = logNH_par
+    return fd
     
-pd.set_option('display.max_columns', 500)
-pd.set_option('display.max_rows', 500)
-
-# DEGREE_SYMBOL = "\N{DEGREE SIGN}"
-
-# units_choice = st.sidebar.selectbox('Choose y-axis units', ('uxclumpy', 'mytorus[coupled]', 'borus02', 'pexrav (R17B1)'))
-
-# import matplotlib.pyplot as plt
-
+# pd.set_option('display.max_columns', 500)
+# pd.set_option('display.max_rows', 500)
 
 fd = {}
 
 fd["df"] = pd.read_csv("./uxclumpy_var_NH_v19.csv")
 fd["cols"] = [c for c in fd["df"].columns if "E_keV" not in c]
+fd["parameters"] = np.array([float(c.split("_")[-1]) for c in fd["cols"]])
 fd["x_range"] = [np.log10(0.5), np.log10(350.)]
 fd["y_range"] = [np.log10(2.e-4), np.log10(9.)]
-# fd["y_label"] = r"$E$\,F$_{E}$\ $\longrightarrow$"#E$^{2}n({\rm E})\,/\,$keV$^{2}$\,s$^{-1}$\,cm$^{-2}$\,keV$^{-1}$"
-# fd["x_label"] = r"E\,/\,keV\ $\longrightarrow$"
 fd["vmin"] = 21.
 fd["vmax"] = 26.
-# fd["cmap"] = plt.get_cmap('PuOr_r')
-
-# mod_df = fd["df"].melt(
-#         id_vars=["E_keV"], value_vars=fd["cols"]
-#     )
-
-# print(mod_df)
-
-# mod_df = mod_df.rename(columns={"variable": "lognh", "value": "spec"})
-# fig_bkg = px.line(
-#     mod_df,
-#     x="E_keV",
-#     y="spec",
-#     color=,
-#     log_x=True,
-#     log_y=True,
-#     width=1000,
-#     height=700,
-#     labels=dict(Flux="EFE / keV s-1 cm-2", Energy="Energy / keV"),
-# )
-# fig_bkg.update_layout(legend=dict(yanchor="top",
-#                               y=0.99,
-#                               xanchor="left",
-#                               x=0.01),
-#                   yaxis=dict(range=fd["y_range"]), 
-#                   xaxis=dict(range=fd["x_range"]))
-
-# st.plotly_chart(fig_bkg)
-
-
-# st.sidebar.title("Parameters")
-
+fd["cmap"] = get_cmap('plasma_r')
+fd["norm"] = Normalize(vmin = 21., vmax = 26.)
+fd["cmap_cols"] = fd["cmap"](fd["norm"](fd["parameters"]))
 st.title("${\\tt uxclumpy}$ X-ray Simulator")
 
 st.subheader("log $N_{\\rm H}$")
+
 ## controller
 logNHtor_c = st.slider(
         "",
@@ -92,25 +59,26 @@ logNHtor_c = st.slider(
         key="",
     )
 
-df = gen_obscured_df(fd, logNHtor_c)
+fd = gen_obscured_df(fd, logNHtor_c)
 
-df_columns = df.columns
+df_columns = fd["df_new"].columns
 fig = px.line(
-    df,
+    fd["df_new"],
     x=df_columns[0],
     y=df_columns[1],
     log_x=True,
     log_y=True,
-    width=775,
+    width=1000,
     height=680,
     labels=dict(Flux="EFE / keV s-1 cm-2", Energy="Energy / keV"),
 )
+
 
 ## more info: https://plotly.com/python/axes/
 fig.update_xaxes(ticks="inside", tickwidth = 2.5, ticklen = 10., linewidth = 2.5, linecolor = "black", mirror = True, gridcolor = "LightGray")
 fig.update_yaxes(ticks="inside", tickwidth = 2.5, ticklen = 10., linewidth = 2.5, linecolor = "black", mirror = True, gridcolor = "LightGray")
 
-fig.update_traces(line=dict(color="dodgerblue", width=4.))
+fig.update_traces(line=dict(color="rgba(%s)" %(",".join(["%.5f" %(f) for f in fd["cmap_cols"][fd["chosen_parID"]]])), width=4.))
 
 fig.update_layout(plot_bgcolor = "rgba(0, 0, 0, 0)",
                   legend=dict(yanchor="top",
@@ -134,7 +102,9 @@ fig.update_layout(plot_bgcolor = "rgba(0, 0, 0, 0)",
                              side="top",
                              titlefont=dict(size=30)))
 
-st.plotly_chart(fig, use_container_width=True)
+## more here: https://plotly.com/python/configuration-options/
+config = {'staticPlot': True}
+st.plotly_chart(fig, use_container_width=True, config=config)
     
 
 # st.sidebar.markdown("### Model outputs")
