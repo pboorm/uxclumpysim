@@ -44,7 +44,7 @@ fd["vmax"] = 26.
 fd["cmap"] = get_cmap('plasma_r')
 fd["norm"] = Normalize(vmin = 21., vmax = 26.)
 fd["cmap_cols"] = fd["cmap"](fd["norm"](fd["parameters"]))
-st.title("${\\tt uxclumpy}$ X-ray Simulator")
+st.title("${\\tt UXCLUMPY}$ X-ray Simulator")
 
 st.subheader("log $N_{\\rm H}$")
 
@@ -86,7 +86,7 @@ fig.update_layout(plot_bgcolor = "rgba(0, 0, 0, 0)",
                               xanchor="left",
                               x=0.01),
                   yaxis=dict(range=fd["y_range"],
-                             title_text="EFE / arb.",
+                             title_text="EF<sub>E</sub> / arb.",
                              tickfont = dict(size=20),
                              tickvals=[1.e-3, 1.e-2, 1.e-1, 1.e0],
                              tickmode="array",
@@ -113,5 +113,5 @@ if st.checkbox("Show Table", False):
     st.write(df, index=False)
 
 # Some advertising
-st.markdown("[uxclumpy](https://github.com/JohannesBuchner/xars/blob/master/doc/uxclumpy.rst): [Buchner et al., (2019)](https://ui.adsabs.harvard.edu/abs/2019A%26A...629A..16B/abstract)")
+st.markdown("[UXCLUMPY](https://github.com/JohannesBuchner/xars/blob/master/doc/uxclumpy.rst): [Buchner et al., (2019)](https://ui.adsabs.harvard.edu/abs/2019A%26A...629A..16B/abstract)")
 st.markdown("App designed by: [Dr. Peter Boorman](https://www.peterboorman.com) & [Dr. Adam Hill](https://www.adambenhill.com)")
