@@ -23,7 +23,7 @@ st.subheader("${\\tt UXCLUMPY}$ log $N_{\\rm H}$")
 logNH_c = st.slider(
         "",
         min_value=21.,
-        max_value=26.,
+        max_value=25.95,
         value = 24.,
         step=0.05,
         format="%.2f",
