@@ -30,16 +30,42 @@ logNH_c = st.slider(
         key="",
     )
 
-fig = px.line(
-    df,
-    x=df["E_keV"],
-    y=df["lognh_%.2f" %(logNH_c)],
-    log_x=True,
-    log_y=True,
-    width=1000,
-    height=500,
-    labels=dict(Flux="EFE / keV s-1 cm-2", Energy="Energy / keV"),
-)
+cols = [c for c in df.columns if "E_keV" not in c]
+
+# fig = px.line(
+#     df,
+#     x=df["E_keV"],
+#     y=df["lognh_%.2f" %(logNH_c)],
+#     log_x=True,
+#     log_y=True,
+#     width=1000,
+#     height=500,
+#     labels=dict(Flux="EFE / keV s-1 cm-2", Energy="Energy / keV"))#,
+    # animation_frame="lognh_%.2f" %(logNH_c))
+
+test_df = (df.set_index("E_keV")
+                  .unstack()
+                  .reset_index()
+                  .rename(columns={"level_0": "nH", 0: "value"}))
+
+test_df["nH"] = test_df["nH"].map(lambda x: float(x.split("_")[-1]))
+
+y_range_lin = [10 ** v for v in y_range]
+x_range_lin = [10 ** v for v in x_range]
+fig = px.line(test_df, x="E_keV",
+              y="value",
+              animation_frame="nH",
+              # color="nH",
+              # hover_name="value",
+              log_x = True,
+              log_y=True,
+              range_x=x_range_lin,
+              range_y=y_range_lin,
+              width=1000,
+              height=600,
+              )
+
+
 
 colour = "rgba(%s)" %(",".join(["%.5f" %(f) for f in cmap_cols[df.columns.get_loc("lognh_%.2f" %(logNH_c)) - 1]]))
 
@@ -54,7 +80,8 @@ fig.update_layout(plot_bgcolor = "rgba(0, 0, 0, 0)",
                               y=0.99,
                               xanchor="left",
                               x=0.01),
-                  yaxis=dict(range=y_range,
+                  yaxis=dict(
+                             # range=y_range_lin,
                              title_text="EF<sub>E</sub> / arb.",
                              tickfont = dict(size=20),
                              tickvals=[1.e-3, 1.e-2, 1.e-1, 1.e0],
@@ -62,7 +89,8 @@ fig.update_layout(plot_bgcolor = "rgba(0, 0, 0, 0)",
                              mirror="allticks",
                              side="top",
                              titlefont=dict(size=30)), 
-                  xaxis=dict(range=x_range,
+                  xaxis=dict(
+                             # range=x_range_lin,
                              title_text="E / keV",
                              tickfont = dict(size=20),
                              tickvals=[1., 10., 100.],
