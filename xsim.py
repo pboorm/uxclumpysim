@@ -92,4 +92,5 @@ st.plotly_chart(fig, use_container_width=True)#, config=config)
     # st.write(df[["E_keV", "lognh_%.2f" %(logNH_c)]], index=False)
 
 # Some advertising
-st.markdown("[UXCLUMPY](https://github.com/JohannesBuchner/xars/blob/master/doc/uxclumpy.rst) [(Buchner et al., 2019)](https://ui.adsabs.harvard.edu/abs/2019A%26A...629A..16B/abstract), &copy; [Dr. Peter Boorman](https://www.peterboorman.com) & [Dr. Adam Hill](https://www.adambenhill.com)")
+st.markdown("[UXCLUMPY](https://github.com/JohannesBuchner/xars/blob/master/doc/uxclumpy.rst) [(Buchner et al., 2019)](https://ui.adsabs.harvard.edu/abs/2019A%26A...629A..16B/abstract)")
+st.markdown("Figure credit: [Dr. Peter Boorman](https://www.peterboorman.com) & [Dr. Adam Hill](https://www.adambenhill.com)")
