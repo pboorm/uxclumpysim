@@ -42,6 +42,7 @@ fig = px.line(test_df, x="E_keV",
               range_y=y_range_lin,
               width=1000,
               height=600,
+              line_shape='hvh'
               )
 
 st.subheader("${\\tt UXCLUMPY}$ log $N_{\\rm H}$")
@@ -51,7 +52,7 @@ fig.update_xaxes(ticks="inside", tickwidth = 2.5, ticklen = 10., linewidth = 2.5
 fig.update_yaxes(ticks="inside", tickwidth = 2.5, ticklen = 10., linewidth = 2.5, linecolor = "black", mirror = True, gridcolor = "LightGray")
 
 fig.update_traces(line=dict(
-                  width=4.))
+                  width=2.))
 
 fig.update_layout(
                   showlegend=False,
@@ -81,7 +82,7 @@ fig.layout.updatemenus[0].buttons[0].args[1]['frame']['duration'] = 30
 fig.layout.updatemenus[0].buttons[0].args[1]['transition']['duration'] = 5
 
 ## more here: https://plotly.com/python/configuration-options/
-#config = {'staticPlot': True}
+# config = {}#'staticPlot': True}
 st.plotly_chart(fig, use_container_width=True)#, config=config)
     
 
