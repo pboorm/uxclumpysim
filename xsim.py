@@ -12,7 +12,7 @@ from matplotlib.colors import Normalize, rgb2hex
 import cmasher as cmr
 
 df = pd.read_csv("streamlit_uxclumpy.csv")
-x_range = [np.log10(0.3), np.log10(250.)]
+x_range = [np.log10(0.3), np.log10(200.)]
 y_range = [np.log10(2.e-4), np.log10(0.99)]
 
 test_df = (df.set_index("E_keV")
