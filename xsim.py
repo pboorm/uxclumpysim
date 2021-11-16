@@ -68,7 +68,7 @@ fig.update_layout(
                   sliders=sliders,
                   updatemenus=[dict(type='buttons',
                   showactive=False,
-                  y=-0.10,
+                  y=-0.17,
                   x=0.,
                   xanchor='left',
                   yanchor='bottom')
