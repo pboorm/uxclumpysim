@@ -81,8 +81,8 @@ fig.layout.updatemenus[0].buttons[0].args[1]['frame']['duration'] = 30
 fig.layout.updatemenus[0].buttons[0].args[1]['transition']['duration'] = 5
 
 ## more here: https://plotly.com/python/configuration-options/
-config = {}#'staticPlot': True}
-st.plotly_chart(fig, use_container_width=True, config=config)
+#config = {'staticPlot': True}
+st.plotly_chart(fig, use_container_width=True)#, config=config)
     
 
 # st.sidebar.markdown("### Model outputs")
