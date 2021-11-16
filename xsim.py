@@ -45,7 +45,7 @@ fig = px.line(test_df, x="E_keV",
               line_shape='hvh'
               )
 
-st.subheader("${\\tt UXCLUMPY}$ log $N_{\\rm H}$")
+#st.subheader("${\\tt UXCLUMPY}$ log $N_{\\rm H}$")
 
 ## more info: https://plotly.com/python/axes/
 fig.update_xaxes(ticks="inside", tickwidth = 2.5, ticklen = 10., linewidth = 2.5, linecolor = "black", mirror = True, gridcolor = "LightGray")
@@ -92,5 +92,5 @@ st.plotly_chart(fig, use_container_width=True)#, config=config)
     # st.write(df[["E_keV", "lognh_%.2f" %(logNH_c)]], index=False)
 
 # Some advertising
-st.markdown("[UXCLUMPY](https://github.com/JohannesBuchner/xars/blob/master/doc/uxclumpy.rst) [(Buchner et al., 2019)](https://ui.adsabs.harvard.edu/abs/2019A%26A...629A..16B/abstract)")
+st.markdown("X-ray model: [UXCLUMPY](https://github.com/JohannesBuchner/xars/blob/master/doc/uxclumpy.rst) [(Buchner et al., 2019)](https://ui.adsabs.harvard.edu/abs/2019A%26A...629A..16B/abstract)")
 st.markdown("Figure credit: [Dr. Peter Boorman](https://www.peterboorman.com) & [Dr. Adam Hill](https://www.adambenhill.com)")
