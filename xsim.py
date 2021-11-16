@@ -45,7 +45,7 @@ fig = px.line(test_df, x="E_keV",
               line_shape='hvh'
               )
 
-#st.subheader("${\\tt UXCLUMPY}$ log $N_{\\rm H}$")
+# st.subheader("${\\tt UXCLUMPY}$ log $N_{\\rm H}$")
 
 ## more info: https://plotly.com/python/axes/
 fig.update_xaxes(ticks="inside", tickwidth = 2.5, ticklen = 10., linewidth = 2.5, linecolor = "black", mirror = True, gridcolor = "LightGray")
@@ -54,7 +54,25 @@ fig.update_yaxes(ticks="inside", tickwidth = 2.5, ticklen = 10., linewidth = 2.5
 fig.update_traces(line=dict(
                   width=2.))
 
+sliders = [dict(
+# active=10,
+currentvalue={"prefix": r"log <i>N</i><sub>H</sub>: ", "suffix": r" cm<sup>-2</sup>"},
+pad={"t": 50},
+font=dict(
+    # family="Courier New, monospace",
+    size=18,
+    color="black"
+))]
+
 fig.update_layout(
+                  sliders=sliders,
+                  updatemenus=[dict(type='buttons',
+                  showactive=False,
+                  y=-0.10,
+                  x=0.,
+                  xanchor='left',
+                  yanchor='bottom')
+                        ],
                   showlegend=False,
                   plot_bgcolor = "rgba(0, 0, 0, 0)",
                   legend=dict(yanchor="top",
@@ -80,6 +98,11 @@ fig.update_layout(
 
 fig.layout.updatemenus[0].buttons[0].args[1]['frame']['duration'] = 30
 fig.layout.updatemenus[0].buttons[0].args[1]['transition']['duration'] = 5
+# fig['layout']['sliders'][0]['pad'] = dict(t= 150)
+# fig['layout']['updatemenus'][0]['pad']=dict(t= 150)
+
+# position the slider (closer to the plot)
+fig['layout']['sliders'][0]['pad']=dict(l = 60., t= 0.0,)
 
 ## more here: https://plotly.com/python/configuration-options/
 # config = {}#'staticPlot': True}
@@ -92,4 +115,4 @@ st.plotly_chart(fig, use_container_width=True)#, config=config)
     # st.write(df[["E_keV", "lognh_%.2f" %(logNH_c)]], index=False)
 
 # Some advertising
-st.markdown("X-ray model: [UXCLUMPY](https://github.com/JohannesBuchner/xars/blob/master/doc/uxclumpy.rst) [(Buchner et al., 2019)](https://ui.adsabs.harvard.edu/abs/2019A%26A...629A..16B/abstract), Figure credit: [Peter Boorman](https://www.peterboorman.com) & [Adam Hill](https://www.adambenhill.com)")
+st.markdown("X-ray model: [UXCLUMPY](https://github.com/JohannesBuchner/xars/blob/master/doc/uxclumpy.rst) [(Buchner et al., 2019)](https://ui.adsabs.harvard.edu/abs/2019A%26A...629A..16B/abstract), Figure credit: [Dr. Peter Boorman](https://www.peterboorman.com) & [Dr. Adam Hill](https://www.adambenhill.com)")
